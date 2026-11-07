@@ -28,7 +28,7 @@ const treatments = [
     title: 'Nano Brows Almere | Natuurlijke hairstroke wenkbrauwen',
     description: 'Nano brows (nanoblading) in Almere: ultrafijne haartjes met een digitale machine voor wenkbrauwen die niet van echt te onderscheiden zijn. Gratis consult, 7+ jaar ervaring.',
     h1: 'Nano Brows in Almere',
-    intro: 'Bij nano brows (ook wel nanoblading) teken ik met een digitale machine en een ultrafijne naald losse haartjes in de huid. De haartjes volgen jouw natuurlijke haargroei, waardoor het resultaat niet van echt te onderscheiden is. Perfect als je sparse of ongelijke wenkbrauwen hebt en een subtiele, natuurlijke look wilt.',
+    intro: 'Bij nano brows (ook wel nanoblading) teken ik met een digitale machine en een ultrafijne naald losse haartjes in de huid. De haartjes volgen jouw natuurlijke haargroei, waardoor het resultaat niet van echt te onderscheiden is. Perfect als je dunne of ongelijke wenkbrauwen hebt en een subtiele, natuurlijke look wilt.',
     forWho: ['Wenkbrauwen met kale plekjes of een onregelmatige vorm', 'Een natuurlijke look zonder zichtbare "make-up"', 'Normale tot droge huid (bij een vette huid adviseer ik vaak powder of combi brows)', 'Dagelijks wenkbrauwen tekenen beu'],
     facts: [['Duur behandeling', 'ca. 1,5 – 2 uur, inclusief ontwerp'], ['Houdbaarheid', 'ca. 1,5 – 2 jaar, vervaagt geleidelijk'], ['Bijwerking', 'na 6 – 8 weken, inbegrepen in de prijs'], ['Pijn', 'licht; ik werk met verdovende crème']],
     price: { from: 599, now: 350 },
