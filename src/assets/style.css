@@ -203,3 +203,7 @@ tbody th{font-family:var(--serif);font-size:1.1rem;font-weight:500}
   .promo h2{font-size:1.35rem}
   .hero-actions .btn{width:100%;text-align:center}
 }
+
+/* language switch */
+.nav .lang a{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--taupe);border:1px solid var(--nude);border-radius:999px;padding:6px 12px}
+@media (max-width:900px){.nav .lang a{display:inline-block;border-bottom:1px solid var(--nude);margin-top:12px}}
