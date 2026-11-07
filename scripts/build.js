@@ -457,6 +457,6 @@ const today = new Date().toISOString().slice(0, 10);
 const isHome = (u) => u === '/' || u === '/en/';
 write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `  <url><loc>${SITE.domain}${u}</loc><lastmod>${today}</lastmod><changefreq>${isHome(u) ? 'weekly' : 'monthly'}</changefreq><priority>${isHome(u) ? '1.0' : u.includes('/behandelingen/') || u.includes('/treatments/') ? '0.9' : '0.6'}</priority></url>`).join('\n')}\n</urlset>\n`);
 write('robots.txt', `User-agent: *\nAllow: /\nSitemap: ${SITE.domain}/sitemap.xml\n`);
-// write('CNAME', 'www.angelbrandao.nl'); // enable once the domain is registered and DNS points to GitHub
+write('CNAME', 'www.angelbrandao.nl');
 write('.nojekyll', '');
 console.log(`built ${urls.length} pages → ${DIST}`);
