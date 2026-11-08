@@ -256,6 +256,7 @@ function layout(L, { key, title, description, canonical, body, schema = [], body
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#3B2A22">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/rss+xml" title="Angel Brandão Beauty" href="${L.code === 'nl' ? '/kennis/feed.xml' : '/en/guides/feed.xml'}">
 ${bodyClass === 'home' ? '<link rel="preload" as="image" href="/assets/img/angel-hero.webp" imagesrcset="/assets/img/angel-hero-480.webp 480w, /assets/img/angel-hero-800.webp 800w, /assets/img/angel-hero.webp 1200w" imagesizes="(max-width: 900px) calc(100vw - 40px), 45vw">' : ''}
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Montserrat:wght@300;400;500&display=swap">
@@ -497,7 +498,18 @@ for (const L of LANGS) {
 write('404.html', notFound(NL));
 const today = new Date().toISOString().slice(0, 10);
 const isHome = (u) => u === '/' || u === '/en/';
-write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `  <url><loc>${SITE.domain}${u}</loc><lastmod>${today}</lastmod><changefreq>${isHome(u) ? 'weekly' : 'monthly'}</changefreq><priority>${isHome(u) ? '1.0' : u.includes('/behandelingen/') || u.includes('/treatments/') ? '0.9' : '0.6'}</priority></url>`).join('\n')}\n</urlset>\n`);
+const altOf = (u) => { // map NL<->EN url
+  const pairs = [];
+  for (const k of ['home','treatments','prices','gallery','about','aftercare','contact','privacy','pillar','kennis']) pairs.push([NL.routes[k], EN.routes[k]]);
+  for (const sl of SLUGS) pairs.push([NL.routes.treatment(sl), EN.routes.treatment(sl)]);
+  ARTICLES.nl.items.forEach((a, i) => pairs.push([NL.routes.article(a.slug), EN.routes.article(ARTICLES.en.items[i].slug)]));
+  const p = pairs.find(([a, b]) => a === u || b === u); return p ? { nl: p[0], en: p[1] } : null;
+};
+write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urls.map((u) => { const alt = altOf(u); const links = alt ? `<xhtml:link rel="alternate" hreflang="nl" href="${SITE.domain}${alt.nl}"/><xhtml:link rel="alternate" hreflang="en" href="${SITE.domain}${alt.en}"/><xhtml:link rel="alternate" hreflang="x-default" href="${SITE.domain}${alt.nl}"/>` : ''; return `  <url><loc>${SITE.domain}${u}</loc>${links}<lastmod>${today}</lastmod><changefreq>${isHome(u) ? 'weekly' : 'monthly'}</changefreq><priority>${isHome(u) ? '1.0' : u.includes('/behandelingen/') || u.includes('/treatments/') || u.includes('permanent') ? '0.9' : '0.6'}</priority></url>`; }).join('\n')}\n</urlset>\n`);
+const rssItems = (L) => ARTICLES[L.code].items.map((a) => `<item><title>${esc(a.title)}</title><link>${SITE.domain}${L.routes.article(a.slug)}</link><guid>${SITE.domain}${L.routes.article(a.slug)}</guid><pubDate>${new Date(a.date).toUTCString()}</pubDate><description>${esc(a.desc)}</description></item>`).join('');
+write('kennis/feed.xml', `<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>Angel Brandão Beauty – Kennisbank</title><link>${SITE.domain}/kennis/</link><description>${esc(ARTICLES.nl.indexDesc)}</description><language>nl</language>${rssItems(NL)}</channel></rss>`);
+write('en/guides/feed.xml', `<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>Angel Brandão Beauty – Guides</title><link>${SITE.domain}/en/guides/</link><description>${esc(ARTICLES.en.indexDesc)}</description><language>en</language>${rssItems(EN)}</channel></rss>`);
+fs.writeFileSync(path.join(DIST, 'urls.txt'), urls.map((u) => SITE.domain + u).join('\n'));
 write('robots.txt', `User-agent: *\nAllow: /\nSitemap: ${SITE.domain}/sitemap.xml\n`);
 write('CNAME', 'www.angelbrandao.nl');
 write('.nojekyll', '');
