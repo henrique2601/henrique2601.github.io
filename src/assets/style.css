@@ -17,7 +17,7 @@ p{margin-bottom:1em}
 section{padding-block:clamp(56px,8vw,104px)}
 .eyebrow{font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--taupe);font-weight:500;margin-bottom:1.1em}
 .eyebrow a{color:inherit;text-decoration:none}
-.eyebrow.light{color:var(--rose)}
+.eyebrow.light{color:var(--nude)}
 .lead{font-size:1.2rem;line-height:1.6;max-width:62ch}
 .sub{max-width:62ch;margin-bottom:2.2em}
 .center{text-align:center}
@@ -62,7 +62,7 @@ section{padding-block:clamp(56px,8vw,104px)}
 .promo{background:linear-gradient(120deg,#2A1C16,#3B2A22 60%,#4A362C);color:var(--cream);padding-block:48px}
 .promo-inner{text-align:center}
 .promo h2{color:#fff;margin-bottom:.4em;font-size:clamp(1.5rem,3vw,2.2rem)}
-.promo s{color:var(--taupe);font-weight:300;margin-right:.1em}
+.promo s{color:var(--nude);font-weight:300;margin-right:.1em}
 .promo strong{color:var(--gold);font-weight:500}
 .promo p{max-width:70ch;margin:0 auto 1.4em;color:var(--nude)}
 
@@ -97,7 +97,7 @@ section{padding-block:clamp(56px,8vw,104px)}
 /* steps */
 .steps{background:var(--chocolate);color:var(--cream)}
 .steps h2{color:#fff}
-.steps .eyebrow{color:var(--rose)}
+.steps .eyebrow{color:var(--nude)}
 .steps li{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:28px 24px}
 .steps li span{font-family:var(--serif);font-size:2.2rem;color:var(--gold);display:block;line-height:1;margin-bottom:12px}
 .steps li h3{color:#fff;font-size:1.3rem;margin-bottom:.4em}
@@ -123,7 +123,7 @@ section{padding-block:clamp(56px,8vw,104px)}
 .cta-band{background:linear-gradient(120deg,#2A1C16,#3B2A22 60%,#4A362C);color:var(--cream);text-align:center}
 .cta-band h2{color:#fff}
 .cta-band p{max-width:60ch;margin:0 auto 1.6em;color:var(--nude)}
-.cta-band small{display:block;margin-top:16px;color:var(--taupe);letter-spacing:.04em}
+.cta-band small{display:block;margin-top:16px;color:var(--nude);letter-spacing:.04em}
 
 /* inner pages */
 .page-hero{padding-block:clamp(40px,6vw,80px);background:radial-gradient(900px 500px at 90% -20%,#fff 0%,var(--cream) 60%)}
@@ -161,12 +161,12 @@ tbody th{font-family:var(--serif);font-size:1.1rem;font-weight:500}
 .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px}
 .brand-foot{color:var(--cream);margin-bottom:8px}
 .brand-foot .wordmark{border-color:var(--mocha)}
-.site-footer .tag{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--rose)}
+.site-footer .tag{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--nude)}
 .site-footer h3{color:#fff;font-size:1.2rem;margin-bottom:12px}
 .site-footer ul{list-style:none}
 .site-footer li{margin-bottom:6px}
 .site-footer a{color:var(--nude)}
-.footer-bottom{border-top:1px solid rgba(255,255,255,.08);margin-top:40px;padding-top:20px;font-size:.8rem;color:var(--taupe)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.08);margin-top:40px;padding-top:20px;font-size:.8rem;color:var(--nude)}
 .footer-bottom p{margin:0}
 
 /* whatsapp float */
@@ -189,7 +189,6 @@ tbody th{font-family:var(--serif);font-size:1.1rem;font-weight:500}
   .nav-cta{padding-top:14px}
   .nav-cta a{display:inline-block;border-bottom:0}
   .hero-grid,.why-grid,.about-grid,.two-grid{grid-template-columns:1fr}
-  .hero-img{order:-1}
   .hero-img img{aspect-ratio:5/4;border-radius:var(--radius)}
   .about-grid figure{order:-1}
   .sticky{position:static}

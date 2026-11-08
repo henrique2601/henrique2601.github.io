@@ -258,9 +258,9 @@ function layout(L, { key, title, description, canonical, body, schema = [], body
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 ${bodyClass === 'home' ? '<link rel="preload" as="image" href="/assets/img/angel-hero.webp" imagesrcset="/assets/img/angel-hero-480.webp 480w, /assets/img/angel-hero-800.webp 800w, /assets/img/angel-hero.webp 1200w" imagesizes="(max-width: 900px) calc(100vw - 40px), 45vw">' : ''}
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Montserrat:wght@300;400;500;600&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Montserrat:wght@300;400;500;600&display=swap" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Montserrat:wght@300;400;500;600&display=swap"></noscript>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Montserrat:wght@300;400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Montserrat:wght@300;400;500&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Montserrat:wght@300;400;500&display=swap"></noscript>
 <style>${CSS}</style>
 ${jsonld}
 </head>
@@ -268,7 +268,7 @@ ${jsonld}
 <a class="skip" href="#main">${L.nav.skip}</a>
 <header class="site-header">
   <div class="wrap nav-wrap">
-    <a class="brand" href="${L.routes.home}" aria-label="Angel Brandão Beauty"><span class="mono">AB</span><span class="wordmark">Angel Brandão</span></a>
+    <a class="brand" href="${L.routes.home}" aria-label="Angel Brandão"><span class="mono">AB</span><span class="wordmark">Angel Brandão</span></a>
     <button class="nav-toggle" aria-expanded="false" aria-controls="nav" aria-label="${L.nav.menu}"><span></span><span></span><span></span></button>
     <nav id="nav" class="nav">
       <ul>
