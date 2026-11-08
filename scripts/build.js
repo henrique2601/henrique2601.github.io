@@ -268,7 +268,7 @@ ${jsonld}
 <a class="skip" href="#main">${L.nav.skip}</a>
 <header class="site-header">
   <div class="wrap nav-wrap">
-    <a class="brand" href="${L.routes.home}" aria-label="Angel Brandão"><span class="mono">AB</span><span class="wordmark">Angel Brandão</span></a>
+    <a class="brand" href="${L.routes.home}"><span class="mono">AB</span><span class="wordmark">Angel Brandão</span></a>
     <button class="nav-toggle" aria-expanded="false" aria-controls="nav" aria-label="${L.nav.menu}"><span></span><span></span><span></span></button>
     <nav id="nav" class="nav">
       <ul>
