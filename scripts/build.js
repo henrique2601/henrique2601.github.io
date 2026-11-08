@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const ARTICLES = require('./articles.js');
 const PILLAR = require('./pillar.js');
+const DEPTH = require('./depth.js');
 const CSS = fs.readFileSync(path.join(__dirname, '..', 'src', 'assets', 'style.css'), 'utf8').replace(/\n\s*/g, ' ').replace(/\/\*.*?\*\//g, '');
 
 const ROOT = path.join(__dirname, '..');
@@ -32,7 +33,7 @@ const SLUGS = ['nano-brows', 'powder-brows', 'combi-brows', 'lip-blush', 'brow-l
 // ---------------------------------------------------------------- NL
 const NL = {
   code: 'nl', locale: 'nl_NL', prefix: '',
-  routes: { home: '/', pillar: '/permanente-make-up-almere/', kennis: '/kennis/', article: (a) => `/kennis/${a}/`, treatments: '/behandelingen/', treatment: (s) => `/behandelingen/${s}/`, prices: '/prijzen/', gallery: '/voor-en-na/', about: '/over-angel/', aftercare: '/nazorg/', contact: '/contact/', privacy: '/privacy/' },
+  routes: { home: '/', faq: '/veelgestelde-vragen/', pillar: '/permanente-make-up-almere/', kennis: '/kennis/', article: (a) => `/kennis/${a}/`, treatments: '/behandelingen/', treatment: (s) => `/behandelingen/${s}/`, prices: '/prijzen/', gallery: '/voor-en-na/', about: '/over-angel/', aftercare: '/nazorg/', contact: '/contact/', privacy: '/privacy/' },
   nav: { treatments: 'Behandelingen', prices: 'Prijzen', gallery: 'Voor & na', about: 'Over Angel', aftercare: 'Nazorg', contact: 'Contact', cta: 'WhatsApp', faq: 'FAQ', privacy: 'Privacy', switch: 'English', skip: 'Naar inhoud', menu: 'Menu' },
   ctaText: 'Hoi Angel! Ik heb interesse in permanente make-up en wil graag een afspraak maken.',
   ctaTreat: (n) => `Hoi Angel! Ik heb interesse in ${n}. Kan ik een afspraak maken?`,
@@ -125,7 +126,7 @@ const NL = {
 // ---------------------------------------------------------------- EN
 const EN = {
   code: 'en', locale: 'en_GB', prefix: '/en',
-  routes: { home: '/en/', pillar: '/en/permanent-make-up-almere/', kennis: '/en/guides/', article: (a) => `/en/guides/${a}/`, treatments: '/en/treatments/', treatment: (s) => `/en/treatments/${s}/`, prices: '/en/prices/', gallery: '/en/before-after/', about: '/en/about/', aftercare: '/en/aftercare/', contact: '/en/contact/', privacy: '/en/privacy/' },
+  routes: { home: '/en/', faq: '/en/faq/', pillar: '/en/permanent-make-up-almere/', kennis: '/en/guides/', article: (a) => `/en/guides/${a}/`, treatments: '/en/treatments/', treatment: (s) => `/en/treatments/${s}/`, prices: '/en/prices/', gallery: '/en/before-after/', about: '/en/about/', aftercare: '/en/aftercare/', contact: '/en/contact/', privacy: '/en/privacy/' },
   nav: { treatments: 'Treatments', prices: 'Prices', gallery: 'Before & after', about: 'About Angel', aftercare: 'Aftercare', contact: 'Contact', cta: 'WhatsApp', faq: 'FAQ', privacy: 'Privacy', switch: 'Nederlands', skip: 'Skip to content', menu: 'Menu' },
   ctaText: 'Hi Angel! I am interested in permanent make-up and would like to book an appointment.',
   ctaTreat: (n) => `Hi Angel! I'm interested in ${n}. Can I book an appointment?`,
@@ -302,7 +303,7 @@ ${body}
     <div><h3>${L.footer.contact}</h3>
       <p><a href="${SITE.whatsapp}" target="_blank" rel="noopener">${L.wa} ${SITE.phoneDisplay}</a></p>
       <p><a href="${SITE.instagram}" target="_blank" rel="noopener">${L.ig}</a></p>
-      <p><a href="${L.routes.aftercare}">${L.nav.aftercare}</a> · <a href="${L.routes.contact}#faq">${L.nav.faq}</a> · <a href="${L.routes.privacy}">${L.nav.privacy}</a> · <a href="${altUrl}" hreflang="${other.code}">${L.nav.switch}</a></p>
+      <p><a href="${L.routes.aftercare}">${L.nav.aftercare}</a> · <a href="${L.routes.faq}">${L.nav.faq}</a> · <a href="${L.routes.privacy}">${L.nav.privacy}</a> · <a href="${altUrl}" hreflang="${other.code}">${L.nav.switch}</a></p>
     </div>
   </div>
   <div class="wrap footer-bottom"><p>${L.footer.bottom}</p></div>
@@ -361,7 +362,7 @@ function treatmentPage(L, s) {
 </div></section>
 <section class="two-col"><div class="wrap two-grid">
   <div><h2>${P.forWho(t.name)}</h2><ul class="checks">${t.forWho.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
-  <h2>${P.good}</h2><dl class="facts">${t.facts.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl></div>
+  <h2>${P.good}</h2><dl class="facts">${t.facts.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl><div class="prose depth">${DEPTH[L.code][s] || ''}</div></div>
   <figure class="sticky"><img src="/assets/img/${IMG[s].replace('.jpg','.webp')}" srcset="/assets/img/${IMG[s].replace('.jpg','-480.webp')} 480w, /assets/img/${IMG[s].replace('.jpg','-800.webp')} 800w, /assets/img/${IMG[s].replace('.jpg','.webp')} 1200w" sizes="(max-width: 900px) calc(100vw - 40px), 36vw" alt="${esc(P.alt(t.name))}" width="900" height="1200" fetchpriority="high"></figure>
 </div></section>
 <section class="steps alt"><div class="wrap"><h2>${P.howH}</h2>${stepsList(P.steps)}</div></section>
@@ -457,6 +458,16 @@ ${faqBlock(P.faq, L.faqTitle)}${ctaBand(L)}`;
   return layout(L, { key: 'pillar', title: P.title, description: P.desc, canonical: L.routes.pillar, body, schema });
 }
 
+
+function faqHub(L) {
+  const T = L.code === 'nl' ? { title: 'Veelgestelde vragen over permanente make-up | Angel Brandão Almere', desc: 'Alle vragen over PMU op één plek: prijzen, pijn, genezing, huidtype, oude PMU, lip blush en afspraken bij Angel Brandão in Almere.', h1: 'Veelgestelde vragen over permanente make-up', lead: 'Alles wat klanten mij vragen via WhatsApp, eerlijk beantwoord. Staat je vraag er niet bij? Stuur een berichtje.', gen: 'Algemeen' } : { title: 'Permanent make-up FAQ | Angel Brandão Almere', desc: 'All PMU questions in one place: prices, pain, healing, skin type, old PMU, lip blush and appointments at Angel Brandão in Almere.', h1: 'Frequently asked questions about permanent make-up', lead: 'Everything clients ask me on WhatsApp, answered honestly. Question not here? Send me a message.', gen: 'General' };
+  const groups = [[T.gen, L.homeFaq], [PILLAR[L.code].h1, PILLAR[L.code].faq], ...SLUGS.map((s) => [L.treatments[s].name, L.treatments[s].faq]), [L.nav.prices, L.prices.faq]];
+  const all = groups.flatMap(([, f]) => f);
+  const body = `<section class="page-hero"><div class="wrap"><p class="eyebrow">FAQ</p><h1>${T.h1}</h1><p class="lead">${T.lead}</p></div></section>
+${groups.map(([h, f]) => faqBlock(f, h)).join('')}${ctaBand(L)}`;
+  return layout(L, { key: 'faq', title: T.title, description: T.desc, canonical: L.routes.faq, body, schema: [faqSchema(all)] });
+}
+
 function articlesIndex(L) {
   const A = ARTICLES[L.code];
   const cards = A.items.map((a) => `<a class="card svc" href="${L.routes.article(a.slug)}"><img class="card-img" src="/assets/img/${a.img.replace('.jpg','-480.webp')}" alt="" width="480" height="600" loading="lazy"><h2>${a.title}</h2><p>${esc(a.desc)}</p><span class="link">${A.read}</span></a>`).join('');
@@ -493,14 +504,14 @@ for (const L of LANGS) {
   put(R.home, homePage(L)); put(R.treatments, treatmentsIndex(L));
   for (const s of SLUGS) put(R.treatment(s), treatmentPage(L, s));
   put(R.prices, pricesPage(L)); put(R.gallery, galleryPage(L)); put(R.about, aboutPage(L)); put(R.aftercare, aftercarePage(L)); put(R.contact, contactPage(L)); put(R.privacy, privacyPage(L));
-  put(R.pillar, pillarPage(L)); put(R.kennis, articlesIndex(L)); for (const a of ARTICLES[L.code].items) put(R.article(a.slug), articlePage(L, a));
+  put(R.pillar, pillarPage(L)); put(R.faq, faqHub(L)); put(R.kennis, articlesIndex(L)); for (const a of ARTICLES[L.code].items) put(R.article(a.slug), articlePage(L, a));
 }
 write('404.html', notFound(NL));
 const today = new Date().toISOString().slice(0, 10);
 const isHome = (u) => u === '/' || u === '/en/';
 const altOf = (u) => { // map NL<->EN url
   const pairs = [];
-  for (const k of ['home','treatments','prices','gallery','about','aftercare','contact','privacy','pillar','kennis']) pairs.push([NL.routes[k], EN.routes[k]]);
+  for (const k of ['home','treatments','prices','gallery','about','aftercare','contact','privacy','pillar','kennis','faq']) pairs.push([NL.routes[k], EN.routes[k]]);
   for (const sl of SLUGS) pairs.push([NL.routes.treatment(sl), EN.routes.treatment(sl)]);
   ARTICLES.nl.items.forEach((a, i) => pairs.push([NL.routes.article(a.slug), EN.routes.article(ARTICLES.en.items[i].slug)]));
   const p = pairs.find(([a, b]) => a === u || b === u); return p ? { nl: p[0], en: p[1] } : null;
