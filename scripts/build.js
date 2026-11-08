@@ -2,6 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 const ARTICLES = require('./articles.js');
+const PILLAR = require('./pillar.js');
 
 const ROOT = path.join(__dirname, '..');
 const SRC = path.join(ROOT, 'src');
@@ -30,7 +31,7 @@ const SLUGS = ['nano-brows', 'powder-brows', 'combi-brows', 'lip-blush', 'brow-l
 // ---------------------------------------------------------------- NL
 const NL = {
   code: 'nl', locale: 'nl_NL', prefix: '',
-  routes: { home: '/', kennis: '/kennis/', article: (a) => `/kennis/${a}/`, treatments: '/behandelingen/', treatment: (s) => `/behandelingen/${s}/`, prices: '/prijzen/', gallery: '/voor-en-na/', about: '/over-angel/', aftercare: '/nazorg/', contact: '/contact/', privacy: '/privacy/' },
+  routes: { home: '/', pillar: '/permanente-make-up-almere/', kennis: '/kennis/', article: (a) => `/kennis/${a}/`, treatments: '/behandelingen/', treatment: (s) => `/behandelingen/${s}/`, prices: '/prijzen/', gallery: '/voor-en-na/', about: '/over-angel/', aftercare: '/nazorg/', contact: '/contact/', privacy: '/privacy/' },
   nav: { treatments: 'Behandelingen', prices: 'Prijzen', gallery: 'Voor & na', about: 'Over Angel', aftercare: 'Nazorg', contact: 'Contact', cta: 'WhatsApp', faq: 'FAQ', privacy: 'Privacy', switch: 'English', skip: 'Naar inhoud', menu: 'Menu' },
   ctaText: 'Hoi Angel! Ik heb interesse in permanente make-up en wil graag een afspraak maken.',
   ctaTreat: (n) => `Hoi Angel! Ik heb interesse in ${n}. Kan ik een afspraak maken?`,
@@ -44,18 +45,18 @@ const NL = {
       forWho: ['Wenkbrauwen met kale plekjes of een onregelmatige vorm', 'Een natuurlijke look zonder zichtbare "make-up"', 'Normale tot droge huid (bij een vette huid adviseer ik vaak powder of combi brows)', 'Dagelijks wenkbrauwen tekenen beu'],
       facts: [['Duur behandeling', 'ca. 1,5 – 2 uur, inclusief ontwerp'], ['Houdbaarheid', 'ca. 1,5 – 2 jaar, vervaagt geleidelijk'], ['Bijwerking', 'na 6 – 8 weken, inbegrepen in de prijs'], ['Pijn', 'licht; ik werk met verdovende crème']],
       faq: [['Nano brows of powder brows: wat past bij mij?', 'Heb je nog eigen haar en een normale tot droge huid, dan geven nano brows het meest natuurlijke resultaat. Heb je weinig haar of een vette huid, dan houden powder brows of combi brows langer. In een WhatsApp-gesprek met een foto adviseer ik je gratis.'], ['Hoe lang blijven nano brows goed?', 'Gemiddeld 1,5 tot 2 jaar. De fijne haartjes vervagen geleidelijk en kunnen daarna opgefrist worden.'], ['Doen nano brows pijn?', 'Ik werk met een verdovende crème. De meeste klanten omschrijven het als licht krassend; de behandeling duurt ongeveer 1,5 tot 2 uur.'], ['Wat is het verschil tussen nano brows en microblading?', 'Microblading snijdt de haartjes met een handblade in de huid. Bij nano brows gebruik ik een digitale machine met een enkele naald. Dat is zachter voor de huid, bloedt minder, geneest mooier en vervaagt scherper in plaats van grijs of blauw uit te lopen.'], ['Ziet het er niet te hard uit?', 'Nee. Direct na de behandeling is de kleur 30 tot 40 procent donkerder dan het eindresultaat. Na ongeveer vier weken zie je de echte, zachte kleur.'], ['Kan ik nano brows laten zetten als ik al oude PMU heb?', 'Dat hangt af van hoeveel oud pigment er nog zit. Stuur me een foto via WhatsApp, dan kijk ik of het kan of dat de oude PMU eerst verwijderd moet worden.']] },
-    'powder-brows': { name: 'Powder Brows', short: 'Zachte make-up look, tot 3 jaar.', title: 'Powder Brows Almere | Ombré & soft powder brows, prijs €350 | Angel Brandão', description: 'Powder brows (ombré / shadow brows) in Almere: een zachte, gepoederde wenkbrauw alsof je altijd lichte make-up draagt. Geschikt voor elk huidtype, houdbaar tot 3 jaar.', h1: 'Powder Brows in Almere',
+    'powder-brows': { name: 'Powder Brows', short: 'Zachte make-up look, tot 3 jaar.', title: 'Powder Brows Almere | Ombré wenkbrauwen v.a. €350 | Angel Brandão', description: 'Powder brows (ombré / shadow brows) in Almere: een zachte, gepoederde wenkbrauw alsof je altijd lichte make-up draagt. Geschikt voor elk huidtype, houdbaar tot 3 jaar.', h1: 'Powder Brows in Almere: zachte ombré wenkbrauwen, tot 3 jaar',
       intro: 'Powder brows, ook ombré brows, soft powder brows of shadow brows genoemd, geven een zachte, gepoederde wenkbrauw: licht aan het begin en voller naar de staart toe. Het lijkt op wenkbrauwen die je net met poeder of pommade hebt ingevuld, maar dan elke ochtend klaar. Omdat de pigmentatie uit duizenden kleine puntjes bestaat, is deze techniek geschikt voor elk huidtype, ook de vette of rijpere huid.',
       forWho: ['Je vult je wenkbrauwen nu dagelijks in met potlood of poeder', 'Vette, gevoelige of rijpere huid', 'Weinig eigen wenkbrauwhaar', 'Een iets vollere, gedefinieerde look die lang meegaat'],
       facts: [['Duur behandeling', 'ca. 1,5 – 2 uur, inclusief ontwerp'], ['Houdbaarheid', 'ca. 2 – 3 jaar, vervaagt geleidelijk'], ['Bijwerking', 'na 6 – 8 weken, inbegrepen in de prijs'], ['Pijn', 'licht; ik werk met verdovende crème']],
       faq: [['Powder brows of microblading: wat is beter?', 'Microblading snijdt haartjes in de huid en vervaagt vaak ongelijk, zeker bij een vette huid. Powder brows worden met een machine in duizenden zachte puntjes gezet, zijn geschikt voor elk huidtype en houden 2 tot 3 jaar. Daarom doe ik geen microblading meer.'], ['Hoe zien powder brows eruit na 1 week en na 4 weken?', 'Na 1 week zijn er lichte korstjes en lijkt de kleur donker. Rond dag 10 vallen de korstjes af en lijkt de kleur juist te licht. Na 4 weken is de echte, zachte kleur terug en bij de bijwerking na 6 tot 8 weken maken we het perfect.'], ['Wat kosten powder brows in Almere?', 'Bij mij €350 tijdens de actie, normaal €599, inclusief ontwerp, kleuradvies en de bijwerking na 6 tot 8 weken. Elders in Almere ligt de prijs tussen €350 en €475, vaak zonder bijwerking.'], ['Zijn powder brows geschikt voor blond haar?', 'Ja. Ik meng een lichte, koele of warme tint die bij je haarkleur en huid past, zodat het resultaat zacht blijft en niet te donker wordt.'], ['Worden powder brows niet te donker of te "getekend"?', 'Samen kiezen we de intensiteit. Ik werk altijd zacht en bouw de kleur laag voor laag op. Het eindresultaat is een natuurlijke poederlook, geen blokwenkbrauw.'], ['Hoe lang duurt het genezen?', 'De eerste 7 tot 10 dagen kunnen er lichte korstjes ontstaan. Na ongeveer 4 weken is de huid volledig hersteld en zie je de definitieve kleur.'], ['Kan ik daarna nog sporten en zwemmen?', 'De eerste 14 dagen vermijd je zwemmen, sauna en hevig zweten. Daarna kan alles weer gewoon.']] },
-    'combi-brows': { name: 'Combi Brows', short: 'Het beste van twee technieken.', title: 'Combi Brows Almere | Nano haartjes + powder shading', description: 'Combi brows in Almere: nano haartjes aan de voorkant voor een natuurlijke start en powder shading voor volheid. Vol én natuurlijk resultaat, advies via WhatsApp.', h1: 'Combi Brows in Almere',
+    'combi-brows': { name: 'Combi Brows', short: 'Het beste van twee technieken.', title: 'Combi Brows Almere | Hairstrokes + ombré in één behandeling | Angel Brandão', description: 'Combi brows in Almere: nano haartjes aan de voorkant voor een natuurlijke start en powder shading voor volheid. Vol én natuurlijk resultaat, advies via WhatsApp.', h1: 'Combi Brows in Almere: het beste van nano en powder brows',
       intro: 'Combi brows (hybride brows) combineren de twee technieken: aan het begin van de wenkbrauw zet ik fijne nano haartjes voor een natuurlijke, luchtige start, en de rest vul ik met zachte powder shading voor volheid en definitie. Je krijgt het realisme van haartjes en de houdbaarheid en volheid van powder brows in één behandeling.',
       forWho: ['Je wilt een volle wenkbrauw die er tóch natuurlijk uitziet', 'Weinig eigen haar in het midden en de staart', 'Vette of gecombineerde huid waar losse haartjes alleen snel vervagen', 'Je twijfelt tussen nano en powder'],
       facts: [['Duur behandeling', 'ca. 2 uur, inclusief ontwerp'], ['Houdbaarheid', 'ca. 2 – 3 jaar, vervaagt geleidelijk'], ['Bijwerking', 'na 6 – 8 weken, inbegrepen in de prijs'], ['Pijn', 'licht; ik werk met verdovende crème']],
       faq: [['Wat kosten combi brows?', 'Tijdens de actie €350 in plaats van €599, net als nano en powder brows, inclusief ontwerp, kleuradvies en bijwerking na 6 tot 8 weken.'], ['Zijn combi brows geschikt voor een vette huid?', 'Ja. De powder shading houdt goed op een vette huid, terwijl de nano haartjes aan de voorkant het natuurlijke effect geven.'], ['Is combi duurder dan nano of powder?', 'Nee. Tijdens de huidige actie geldt dezelfde prijs voor alle drie de wenkbrauwtechnieken.'], ['Hoe bepalen we welke techniek bij mij past?', 'Via WhatsApp op basis van een foto, en op de dag zelf kijk ik naar je huidtype, je eigen wenkbrauwhaar en de look die je wilt. Ik adviseer eerlijk welke techniek het mooiste en langst houdt.'], ['Teken je de vorm eerst voor?', 'Altijd. Ik meet en teken de vorm met potlood, jij kijkt mee in de spiegel en we passen aan tot jij helemaal tevreden bent. Pas daarna begin ik met pigmenteren.']] },
-    'lip-blush': { name: 'Velvet Lip Blush', short: 'Zachte kleur en definitie, alsof je altijd een beetje lipstick draagt.', title: 'Lip Blush Almere | Permanente make-up lippen', description: 'Velvet lip blush in Almere: een zachte, natuurlijke lipkleur met meer definitie en een voller effect. Houdbaar 2 tot 3 jaar. Boek via WhatsApp bij Angel Brandão.', h1: 'Velvet Lip Blush in Almere',
-      intro: 'Lip blush is permanente make-up voor de lippen. Ik breng een zachte, transparante kleur aan die je natuurlijke liptint versterkt, de lipcontour subtiel definieert en je lippen optisch voller maakt. Geen harde lijn, maar een velvet effect alsof je net een lip tint hebt gebruikt. Ideaal bij bleke, ongelijke of vervaagde lippen.',
+    'lip-blush': { name: 'Velvet Lip Blush', short: 'Zachte kleur en definitie, alsof je altijd een beetje lipstick draagt.', title: 'Lip Blush Almere | Permanente make-up lippen v.a. €249 | Angel Brandão', description: 'Velvet lip blush in Almere: een zachte, natuurlijke lipkleur met meer definitie en een voller effect. Houdbaar 2 tot 3 jaar. Boek via WhatsApp bij Angel Brandão.', h1: 'Lip Blush in Almere: natuurlijke lipkleur en definitie, 2 tot 3 jaar',
+      intro: 'Velvet lip blush is permanente make-up voor de lippen. Ik breng een zachte, transparante kleur aan die je natuurlijke liptint versterkt, de lipcontour subtiel definieert en je lippen optisch voller maakt. Geen harde lijn, maar een velvet effect alsof je net een lip tint hebt gebruikt. Ideaal bij bleke, ongelijke of vervaagde lippen.',
       forWho: ['Bleke of fletse lippen', 'Een onduidelijke of ongelijke lipcontour', 'Je wilt er fris uitzien zonder lipstick', 'Optisch vollere lippen zonder fillers'],
       facts: [['Duur behandeling', 'ca. 2 uur, inclusief ontwerp'], ['Houdbaarheid', 'ca. 2 – 3 jaar'], ['Bijwerking', 'na 6 – 8 weken, inbegrepen in de prijs'], ['Pijn', 'licht; ik werk met verdovende crème']],
       faq: [['Hoe lang blijft lip blush zitten?', 'Gemiddeld 2 tot 3 jaar. Daarna kun je de kleur opfrissen.'], ['Wat kost lip blush in Almere?', 'Bij mij €249 tijdens de actie, normaal €499, inclusief ontwerp en bijwerking. Wenkbrauwen en lippen samen kosten €500.'], ['Kan lip blush na lipfillers?', 'Ja, minimaal 4 weken na de fillers, als de lippen helemaal gesetteld zijn.'], ['Doet lip blush pijn?', 'De lippen zijn gevoelig, daarom werk ik met een sterke verdovende crème. De meeste klanten ervaren het als licht prikkend.'], ['Ik heb weleens een koortslip. Kan ik lip blush laten doen?', 'Ja, maar neem dan vooraf (en na) een antivirale kuur via je huisarts. Dit bespreken we in het consult.'], ['Hoe zien mijn lippen eruit de eerste dagen?', 'De eerste 2 tot 3 dagen zijn de lippen feller en licht gezwollen. Daarna vervelt de huid en wordt de kleur zacht. Na ongeveer 4 weken zie je het eindresultaat.']] },
@@ -74,8 +75,8 @@ const NL = {
     ['Werk je hygiënisch en gecertificeerd?', 'Ja. Ik werk uitsluitend met steriele wegwerpnaalden en -materialen, draag handschoenen en volg de hygiënerichtlijnen voor tatoeëren en PMU. Ik ben gecertificeerd in micropigmentatie en heb meer dan 7 jaar ervaring.'],
   ],
   home: {
-    title: 'Permanente make-up Almere | Powder Brows, Nano Brows & Lip Blush | Angel Brandão', description: 'PMU specialist in Almere Centrum: nanoblading (nano brows), powder brows, combi brows en lip blush met een natuurlijk resultaat. 7+ jaar ervaring, advies en boeken via WhatsApp, actie €350.',
-    eyebrow: 'Permanente make-up (PMU) · Almere Centrum', h1: 'Natuurlijke wenkbrauwen en lippen, elke dag perfect', lead: 'Permanente make-up in Almere: nanoblading (nano brows), powder brows, combi brows en lip blush door Angel Brandão. Meer dan 7 jaar ervaring, een zachte hand en een resultaat dat eruitziet alsof het van jou is.',
+    title: 'Permanente Make-up Almere | Powder, Nano & Lip Blush | Angel Brandão', description: 'PMU specialist in Almere Centrum: nanoblading (nano brows), powder brows, combi brows en lip blush met een natuurlijk resultaat. 7+ jaar ervaring, advies en boeken via WhatsApp, actie €350.',
+    eyebrow: 'Permanente make-up (PMU) · Almere Centrum', h1: 'Permanente make-up in Almere Centrum: natuurlijke wenkbrauwen en lippen', lead: 'Permanente make-up in Almere: nanoblading (nano brows), powder brows, combi brows en lip blush door Angel Brandão. Meer dan 7 jaar ervaring, een zachte hand en een resultaat dat eruitziet alsof het van jou is.',
     cta1: 'Boek via WhatsApp', cta2: 'Bekijk behandelingen', trust: ['7+ jaar ervaring', 'Persoonlijk advies via WhatsApp', 'Steriel & gecertificeerd', 'Bijwerking inbegrepen'], heroAlt: 'Angel Brandão, permanente make-up specialist in Almere',
     promoEyebrow: 'Tijdelijke actie', promoH: 'Wenkbrauwen <s>€599</s> <strong>€350</strong> · Lip blush <s>€499</s> <strong>€249</strong> · Samen <strong>€500</strong>', promoP: 'Geldt voor nano, powder en combi brows. Inclusief ontwerp, kleuradvies en bijwerking na 6 tot 8 weken. Beperkt aantal plekken.', promoBtn: 'Alle prijzen',
     svcEyebrow: 'Behandelingen', svcH: 'Kies de techniek die bij jou past', svcSub: 'Twijfel je? Stuur een foto via WhatsApp. Ik kijk naar je huidtype en je eigen wenkbrauwhaar en adviseer eerlijk wat het mooiste en langst houdt.',
@@ -123,7 +124,7 @@ const NL = {
 // ---------------------------------------------------------------- EN
 const EN = {
   code: 'en', locale: 'en_GB', prefix: '/en',
-  routes: { home: '/en/', kennis: '/en/guides/', article: (a) => `/en/guides/${a}/`, treatments: '/en/treatments/', treatment: (s) => `/en/treatments/${s}/`, prices: '/en/prices/', gallery: '/en/before-after/', about: '/en/about/', aftercare: '/en/aftercare/', contact: '/en/contact/', privacy: '/en/privacy/' },
+  routes: { home: '/en/', pillar: '/en/permanent-make-up-almere/', kennis: '/en/guides/', article: (a) => `/en/guides/${a}/`, treatments: '/en/treatments/', treatment: (s) => `/en/treatments/${s}/`, prices: '/en/prices/', gallery: '/en/before-after/', about: '/en/about/', aftercare: '/en/aftercare/', contact: '/en/contact/', privacy: '/en/privacy/' },
   nav: { treatments: 'Treatments', prices: 'Prices', gallery: 'Before & after', about: 'About Angel', aftercare: 'Aftercare', contact: 'Contact', cta: 'WhatsApp', faq: 'FAQ', privacy: 'Privacy', switch: 'Nederlands', skip: 'Skip to content', menu: 'Menu' },
   ctaText: 'Hi Angel! I am interested in permanent make-up and would like to book an appointment.',
   ctaTreat: (n) => `Hi Angel! I'm interested in ${n}. Can I book an appointment?`,
@@ -137,7 +138,7 @@ const EN = {
       forWho: ['Eyebrows with gaps or an irregular shape', 'A natural look without visible "make-up"', 'Normal to dry skin (for oily skin I often advise powder or combi brows)', 'Tired of drawing your brows every day'],
       facts: [['Treatment time', 'approx. 1.5 – 2 hours, design included'], ['Lasts', 'approx. 1.5 – 2 years, fades gradually'], ['Touch-up', 'after 6 – 8 weeks, included in the price'], ['Pain', 'mild; I use a numbing cream']],
       faq: [['Nano brows or powder brows: which suits me?', 'If you still have your own hair and normal to dry skin, nano brows give the most natural result. With little hair or oily skin, powder or combi brows last longer. Send a photo on WhatsApp and I advise you for free.'], ['How long do nano brows last?', 'On average 1.5 to 2 years. The fine strokes fade gradually and can be refreshed afterwards.'], ['Do nano brows hurt?', 'I use a numbing cream. Most clients describe it as a light scratching; the treatment takes about 1.5 to 2 hours.'], ['What is the difference between nano brows and microblading?', 'Microblading cuts the strokes into the skin with a hand blade. For nano brows I use a digital machine with a single needle. It is gentler on the skin, bleeds less, heals better and fades crisply instead of turning grey or blue.'], ['Will it look too harsh?', 'No. Right after the treatment the colour is 30 to 40 percent darker than the final result. After about four weeks you see the true, soft colour.'], ['Can I get nano brows if I already have old PMU?', 'That depends on how much old pigment is left. Send me a photo on WhatsApp and I will tell you whether it is possible or whether the old PMU needs to be removed first.']] },
-    'powder-brows': { name: 'Powder Brows', short: 'Soft make-up look, up to 3 years.', title: 'Powder Brows Almere | Ombré & soft powder brows from €350 | Angel Brandão', description: 'Powder brows (ombré / shadow brows) in Almere: a soft, powdered eyebrow as if you always wear light make-up. Suitable for every skin type, lasts up to 3 years.', h1: 'Powder Brows in Almere',
+    'powder-brows': { name: 'Powder Brows', short: 'Soft make-up look, up to 3 years.', title: 'Powder Brows Almere | Ombré & soft powder brows from €350 | Angel Brandão', description: 'Powder brows (ombré / shadow brows) in Almere: a soft, powdered eyebrow as if you always wear light make-up. Suitable for every skin type, lasts up to 3 years.', h1: 'Powder Brows in Almere: soft ombré brows that last up to 3 years',
       intro: 'Powder brows, also called shadow or ombré brows, give a soft, powdered eyebrow: light at the front and fuller towards the tail. It looks like brows you have just filled in with powder or pomade, but ready every morning. Because the pigmentation consists of thousands of tiny dots, this technique suits every skin type, including oily or mature skin.',
       forWho: ['You fill in your brows every day with pencil or powder', 'Oily, sensitive or mature skin', 'Little natural eyebrow hair', 'A slightly fuller, defined look that lasts'],
       facts: [['Treatment time', 'approx. 1.5 – 2 hours, design included'], ['Lasts', 'approx. 2 – 3 years, fades gradually'], ['Touch-up', 'after 6 – 8 weeks, included in the price'], ['Pain', 'mild; I use a numbing cream']],
@@ -167,8 +168,8 @@ const EN = {
     ['Do you work hygienically and are you certified?', 'Yes. I only use sterile disposable needles and materials, wear gloves and follow the hygiene guidelines for tattooing and PMU. I am certified in micropigmentation and have more than 7 years of experience.'],
   ],
   home: {
-    title: 'Permanent Make-up Almere | Powder Brows, Nano Brows & Lip Blush | Angel Brandão', description: 'PMU specialist in Almere city centre: nanoblading (nano brows), powder brows, combi brows and lip blush with a natural result. 7+ years of experience, advice and booking on WhatsApp, promo €350.',
-    eyebrow: 'Permanent make-up (PMU) · Almere city centre', h1: 'Natural brows and lips, perfect every day', lead: 'Permanent make-up in Almere: nanoblading (nano brows), powder brows, combi brows and lip blush by Angel Brandão. More than 7 years of experience, a gentle hand and a result that looks like it is simply yours.',
+    title: 'Permanent Make-up Almere | Powder, Nano & Lip Blush | Angel Brandão', description: 'PMU specialist in Almere city centre: nanoblading (nano brows), powder brows, combi brows and lip blush with a natural result. 7+ years of experience, advice and booking on WhatsApp, promo €350.',
+    eyebrow: 'Permanent make-up (PMU) · Almere city centre', h1: 'Permanent make-up in Almere: natural brows and lips, perfect every day', lead: 'Permanent make-up in Almere: nanoblading (nano brows), powder brows, combi brows and lip blush by Angel Brandão. More than 7 years of experience, a gentle hand and a result that looks like it is simply yours.',
     cta1: 'Book on WhatsApp', cta2: 'See treatments', trust: ['7+ years of experience', 'Personal advice on WhatsApp', 'Sterile & certified', 'Touch-up included'], heroAlt: 'Angel Brandão, permanent make-up specialist in Almere',
     promoEyebrow: 'Limited-time offer', promoH: 'Brows <s>€599</s> <strong>€350</strong> · Lip blush <s>€499</s> <strong>€249</strong> · Both <strong>€500</strong>', promoP: 'Valid for nano, powder and combi brows. Includes design, colour advice and the touch-up after 6 to 8 weeks. Limited availability.', promoBtn: 'All prices',
     svcEyebrow: 'Treatments', svcH: 'Choose the technique that suits you', svcSub: 'Not sure? Send a photo on WhatsApp. I look at your skin type and your own brow hair and honestly advise what looks best and lasts longest.',
@@ -221,7 +222,7 @@ const faqSchema = (items) => ({ '@context': 'https://schema.org', '@type': 'FAQP
 const businessSchema = (L) => ({
   '@context': 'https://schema.org', '@type': 'BeautySalon', '@id': `${SITE.domain}/#business`, name: SITE.name, url: SITE.domain + L.routes.home, telephone: SITE.phone, image: `${SITE.domain}/assets/img/og.jpg`, priceRange: '€€',
   description: L.schemaDesc, address: { '@type': 'PostalAddress', streetAddress: SITE.address.street, postalCode: SITE.address.zip, addressLocality: 'Almere', addressRegion: 'Flevoland', addressCountry: 'NL' }, hasMap: SITE.maps,
-  areaServed: ['Almere', 'Amsterdam', 'Lelystad', 'Hilversum', 'Flevoland'], sameAs: [SITE.instagram, SITE.facebook], openingHours: 'Mo-Su 09:00-20:00',
+  areaServed: ['Almere', 'Amsterdam', 'Lelystad', 'Hilversum', 'Flevoland'], sameAs: [SITE.instagram, SITE.facebook], openingHoursSpecification: [{ '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'], opens: '09:00', closes: '20:00' }], geo: { '@type': 'GeoCoordinates', latitude: 52.3717, longitude: 5.2179 }, currenciesAccepted: 'EUR', paymentAccepted: 'iDEAL, bankoverschrijving',
   makesOffer: SLUGS.filter((s) => PRICE[s]).map((s) => ({ '@type': 'Offer', name: L.treatments[s].name, price: PRICE[s].now, priceCurrency: 'EUR', url: SITE.domain + L.routes.treatment(s) })),
 });
 const ctaBand = (L, h) => `<section class="cta-band"><div class="wrap"><h2>${esc(h || L.band.h)}</h2><p>${esc(L.band.p)}</p><a class="btn btn-gold" href="${wa(L.ctaText)}" target="_blank" rel="noopener">${L.band.btn}</a><small>${L.band.small}</small></div></section>`;
@@ -270,6 +271,7 @@ ${jsonld}
     <button class="nav-toggle" aria-expanded="false" aria-controls="nav" aria-label="${L.nav.menu}"><span></span><span></span><span></span></button>
     <nav id="nav" class="nav">
       <ul>
+        <li><a href="${L.routes.pillar}">${PILLAR[L.code].nav}</a></li>
         <li class="has-sub"><a href="${L.routes.treatments}">${L.nav.treatments}</a><ul class="sub">${navTreat}</ul></li>
         <li><a href="${L.routes.prices}">${L.nav.prices}</a></li>
         <li><a href="${L.routes.gallery}">${L.nav.gallery}</a></li>
@@ -318,7 +320,7 @@ function homePage(L) {
   const body = `
 <section class="hero"><div class="wrap hero-grid">
   <div class="hero-text">
-    <p class="eyebrow">${H.eyebrow}</p>
+    <p class="eyebrow"><a href="${L.routes.pillar}">${H.eyebrow}</a></p>
     <h1>${H.h1}</h1>
     <p class="lead">${H.lead}</p>
     <div class="hero-actions"><a class="btn btn-gold" href="${wa(L.ctaText)}" target="_blank" rel="noopener">${H.cta1}</a><a class="btn btn-ghost" href="${L.routes.treatments}">${H.cta2}</a></div>
@@ -364,7 +366,7 @@ function treatmentPage(L, s) {
 ${faqBlock(t.faq, P.faqH(t.name))}
 <section class="related"><div class="wrap"><h2>${P.others}</h2><ul class="pills">${others}</ul></div></section>
 ${ctaBand(L, P.band(t.name))}`;
-  const schema = [faqSchema(t.faq), { '@context': 'https://schema.org', '@type': 'Service', name: `${t.name} Almere`, serviceType: t.name, provider: { '@id': `${SITE.domain}/#business` }, areaServed: 'Almere', description: t.description, url: SITE.domain + L.routes.treatment(s), ...(PRICE[s] ? { offers: { '@type': 'Offer', price: PRICE[s].now, priceCurrency: 'EUR', priceValidUntil: '2026-12-31' } } : {}) }];
+  const schema = [faqSchema(t.faq), { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: SITE.domain + L.routes.home }, { '@type': 'ListItem', position: 2, name: L.nav.treatments, item: SITE.domain + L.routes.treatments }, { '@type': 'ListItem', position: 3, name: t.name, item: SITE.domain + L.routes.treatment(s) }] }, { '@context': 'https://schema.org', '@type': 'Service', name: `${t.name} Almere`, serviceType: t.name, provider: { '@id': `${SITE.domain}/#business` }, areaServed: 'Almere', description: t.description, url: SITE.domain + L.routes.treatment(s), ...(PRICE[s] ? { offers: { '@type': 'Offer', price: PRICE[s].now, priceCurrency: 'EUR', priceValidUntil: '2026-12-31' } } : {}) }];
   return layout(L, { key: 'treatment', title: t.title, description: t.description, canonical: L.routes.treatment(s), body, schema, bodyClass: s });
 }
 
@@ -442,6 +444,17 @@ function privacyPage(L) {
 }
 
 
+
+function pillarPage(L) {
+  const P = PILLAR[L.code];
+  const body = `<section class="page-hero"><div class="wrap"><p class="eyebrow">${L.home.eyebrow}</p><h1>${P.h1}</h1><p class="lead">${esc(P.lead)}</p>
+<div class="hero-actions"><a class="btn btn-gold" href="${wa(L.ctaText)}" target="_blank" rel="noopener">${L.home.cta1}</a><a class="btn btn-ghost" href="${L.routes.prices}">${L.nav.prices}</a></div></div></section>
+<section class="two-col"><div class="wrap two-grid"><article class="prose">${P.body}</article><figure class="sticky"><img src="/assets/img/angel-hero.webp" srcset="/assets/img/angel-hero-640.webp 640w, /assets/img/angel-hero.webp 1200w" sizes="(max-width: 900px) 100vw, 40vw" alt="${esc(L.home.heroAlt)}" width="1200" height="1400" loading="lazy"></figure></div></section>
+${faqBlock(P.faq, L.faqTitle)}${ctaBand(L)}`;
+  const schema = [faqSchema(P.faq), { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: SITE.domain + L.routes.home }, { '@type': 'ListItem', position: 2, name: P.h1, item: SITE.domain + L.routes.pillar }] }];
+  return layout(L, { key: 'pillar', title: P.title, description: P.desc, canonical: L.routes.pillar, body, schema });
+}
+
 function articlesIndex(L) {
   const A = ARTICLES[L.code];
   const cards = A.items.map((a) => `<a class="card svc" href="${L.routes.article(a.slug)}"><img class="card-img" src="/assets/img/${a.img.replace('.jpg','-640.webp')}" alt="" width="640" height="800" loading="lazy"><h2>${a.title}</h2><p>${esc(a.desc)}</p><span class="link">${A.read}</span></a>`).join('');
@@ -478,7 +491,7 @@ for (const L of LANGS) {
   put(R.home, homePage(L)); put(R.treatments, treatmentsIndex(L));
   for (const s of SLUGS) put(R.treatment(s), treatmentPage(L, s));
   put(R.prices, pricesPage(L)); put(R.gallery, galleryPage(L)); put(R.about, aboutPage(L)); put(R.aftercare, aftercarePage(L)); put(R.contact, contactPage(L)); put(R.privacy, privacyPage(L));
-  put(R.kennis, articlesIndex(L)); for (const a of ARTICLES[L.code].items) put(R.article(a.slug), articlePage(L, a));
+  put(R.pillar, pillarPage(L)); put(R.kennis, articlesIndex(L)); for (const a of ARTICLES[L.code].items) put(R.article(a.slug), articlePage(L, a));
 }
 write('404.html', notFound(NL));
 const today = new Date().toISOString().slice(0, 10);
