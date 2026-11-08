@@ -211,3 +211,5 @@ tbody th{font-family:var(--serif);font-size:1.1rem;font-weight:500}
 .card-img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;margin-bottom:6px}
 .prose h2{font-size:1.7rem}
 .prose table{min-width:0}
+
+.steps.alt li span{color:#8A6B2B}
