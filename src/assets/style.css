@@ -108,7 +108,7 @@ section{padding-block:clamp(56px,8vw,104px)}
 .steps.alt li{background:var(--cream);border-color:transparent}
 .steps.alt li h3{color:var(--chocolate)}
 .steps.alt li p{color:var(--mocha)}
-.steps.alt li a{color:var(--gold-dark)}
+.steps.alt li a{color:#8A6B2B;text-decoration:underline}
 
 /* faq */
 .faq{background:var(--cream)}
