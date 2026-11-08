@@ -252,8 +252,11 @@ function layout(L, { key, title, description, canonical, body, schema = [], body
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#3B2A22">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+${bodyClass === 'home' ? '<link rel="preload" as="image" href="/assets/img/angel-hero.webp" imagesrcset="/assets/img/angel-hero-640.webp 640w, /assets/img/angel-hero.webp 1200w" imagesizes="(max-width: 900px) 100vw, 50vw">' : ''}
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Montserrat:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Montserrat:wght@300;400;500;600&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Montserrat:wght@300;400;500;600&display=swap"></noscript>
 <link rel="stylesheet" href="/assets/style.css">
 ${jsonld}
 </head>
@@ -318,22 +321,22 @@ function homePage(L) {
     <div class="hero-actions"><a class="btn btn-gold" href="${wa(L.ctaText)}" target="_blank" rel="noopener">${H.cta1}</a><a class="btn btn-ghost" href="${L.routes.treatments}">${H.cta2}</a></div>
     <ul class="trust">${H.trust.map((t) => `<li>${t}</li>`).join('')}</ul>
   </div>
-  <figure class="hero-img"><img src="/assets/img/angel-hero.jpg" alt="${esc(H.heroAlt)}" width="1200" height="1400" fetchpriority="high"></figure>
+  <figure class="hero-img"><img src="/assets/img/angel-hero.webp" srcset="/assets/img/angel-hero-640.webp 640w, /assets/img/angel-hero.webp 1200w" sizes="(max-width: 900px) 100vw, 50vw" alt="${esc(H.heroAlt)}" width="1200" height="1400" fetchpriority="high"></figure>
 </div></section>
 <section class="promo"><div class="wrap promo-inner"><p class="eyebrow light">${H.promoEyebrow}</p><h2>${H.promoH}</h2><p>${H.promoP}</p><a class="btn btn-light" href="${L.routes.prices}">${H.promoBtn}</a></div></section>
 <section class="services" id="behandelingen"><div class="wrap"><p class="eyebrow">${H.svcEyebrow}</p><h2>${H.svcH}</h2><p class="sub">${H.svcSub}</p><div class="grid-3">${svcCards(L, 'h3')}</div></div></section>
 <section class="why"><div class="wrap why-grid">
-  <figure><img src="/assets/img/work-11.jpg" alt="${esc(H.whyAlt)}" width="1200" height="1600" loading="lazy"></figure>
+  <figure><img src="/assets/img/work-11.webp" srcset="/assets/img/work-11-640.webp 640w, /assets/img/work-11.webp 1200w" sizes="(max-width: 900px) 100vw, 50vw" alt="${esc(H.whyAlt)}" width="1200" height="1600" loading="lazy"></figure>
   <div><p class="eyebrow">${H.whyEyebrow}</p><h2>${H.whyH}</h2><ul class="checks">${H.why.map((w) => `<li>${w}</li>`).join('')}</ul><a class="btn btn-dark" href="${L.routes.about}">${H.whyBtn}</a></div>
 </div></section>
 <section class="gallery"><div class="wrap"><p class="eyebrow">${H.galEyebrow}</p><h2>${H.galH}</h2>
-  <div class="grid-3 gal">${H.gal.map(([f, c]) => `<figure><img src="/assets/img/${f}" alt="${esc(c)}" loading="lazy"><figcaption>${esc(c)}</figcaption></figure>`).join('')}</div>
+  <div class="grid-3 gal">${H.gal.map(([f, c]) => `<figure><img src="/assets/img/${f.replace('.jpg','.webp')}" srcset="/assets/img/${f.replace('.jpg','-640.webp')} 640w, /assets/img/${f.replace('.jpg','.webp')} 1200w" sizes="(max-width: 600px) 100vw, 33vw" alt="${esc(c)}" width="1200" height="1500" loading="lazy"><figcaption>${esc(c)}</figcaption></figure>`).join('')}</div>
   <p class="center"><a class="btn btn-ghost" href="${L.routes.gallery}">${H.galMore}</a> <a class="btn btn-ghost" href="${SITE.instagram}" target="_blank" rel="noopener">Instagram</a></p>
 </div></section>
 <section class="steps"><div class="wrap"><p class="eyebrow">${H.stepsEyebrow}</p><h2>${H.stepsH}</h2>${stepsList(H.steps)}</div></section>
 <section class="about-teaser"><div class="wrap about-grid">
   <div><p class="eyebrow">${H.aboutEyebrow}</p><h2>${H.aboutH}</h2><p>${H.aboutP1}</p><p>${H.aboutP2}</p><a class="btn btn-dark" href="${L.routes.about}">${H.aboutBtn}</a></div>
-  <figure><img src="/assets/img/angel-sofa.jpg" alt="${esc(H.aboutAlt)}" width="1200" height="1500" loading="lazy"></figure>
+  <figure><img src="/assets/img/angel-sofa.webp" srcset="/assets/img/angel-sofa-640.webp 640w, /assets/img/angel-sofa.webp 1200w" sizes="(max-width: 900px) 100vw, 50vw" alt="${esc(H.aboutAlt)}" width="1200" height="1500" loading="lazy"></figure>
 </div></section>
 ${faqBlock(L.homeFaq, L.faqTitle)}
 ${ctaBand(L)}`;
@@ -352,7 +355,7 @@ function treatmentPage(L, s) {
 <section class="two-col"><div class="wrap two-grid">
   <div><h2>${P.forWho(t.name)}</h2><ul class="checks">${t.forWho.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
   <h2>${P.good}</h2><dl class="facts">${t.facts.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl></div>
-  <figure class="sticky"><img src="/assets/img/${IMG[s]}" alt="${esc(P.alt(t.name))}" width="900" height="1200" loading="lazy"></figure>
+  <figure class="sticky"><img src="/assets/img/${IMG[s].replace('.jpg','.webp')}" srcset="/assets/img/${IMG[s].replace('.jpg','-640.webp')} 640w, /assets/img/${IMG[s].replace('.jpg','.webp')} 1200w" sizes="(max-width: 900px) 100vw, 40vw" alt="${esc(P.alt(t.name))}" width="900" height="1200" fetchpriority="high"></figure>
 </div></section>
 <section class="steps alt"><div class="wrap"><h2>${P.howH}</h2>${stepsList(P.steps)}</div></section>
 ${faqBlock(t.faq, P.faqH(t.name))}
@@ -384,7 +387,7 @@ ${ctaBand(L)}`;
 function galleryPage(L) {
   const G = L.gallery;
   const body = `<section class="page-hero"><div class="wrap"><p class="eyebrow">${G.eyebrow}</p><h1>${G.h1}</h1><p class="lead">${G.lead}</p></div></section>
-<section class="gallery"><div class="wrap"><div class="grid-3 gal">${G.imgs.map(([f, c]) => `<figure><img src="/assets/img/${f}" alt="${esc(c)}" loading="lazy"><figcaption>${esc(c)}</figcaption></figure>`).join('')}</div>
+<section class="gallery"><div class="wrap"><div class="grid-3 gal">${G.imgs.map(([f, c]) => `<figure><img src="/assets/img/${f.replace('.jpg','.webp')}" srcset="/assets/img/${f.replace('.jpg','-640.webp')} 640w, /assets/img/${f.replace('.jpg','.webp')} 1200w" sizes="(max-width: 600px) 100vw, 33vw" alt="${esc(c)}" width="1200" height="1500" loading="lazy"><figcaption>${esc(c)}</figcaption></figure>`).join('')}</div>
 <p class="center">${G.more} <a href="${SITE.instagram}" target="_blank" rel="noopener">Instagram @anggel_brandao</a>.</p></div></section>
 ${ctaBand(L, G.band)}`;
   return layout(L, { key: 'gallery', title: G.title, description: G.description, canonical: L.routes.gallery, body });
@@ -395,7 +398,7 @@ function aboutPage(L) {
   const body = `<section class="page-hero"><div class="wrap"><p class="eyebrow">${A.eyebrow}</p><h1>${A.h1}</h1><p class="lead">${A.lead}</p></div></section>
 <section class="two-col"><div class="wrap two-grid">
 <div class="prose"><p>${A.p1}</p><p>${A.p2}</p><h2>${A.howH}</h2><ul class="checks">${A.how.map((x) => `<li>${x}</li>`).join('')}</ul><h2>${A.practH}</h2><p>${A.pract}</p><p>${A.kvk}</p></div>
-<figure class="sticky"><img src="/assets/img/angel-reception.jpg" alt="${esc(A.alt)}" width="1200" height="1500" loading="lazy"></figure>
+<figure class="sticky"><img src="/assets/img/angel-reception.webp" srcset="/assets/img/angel-reception-640.webp 640w, /assets/img/angel-reception.webp 1200w" sizes="(max-width: 900px) 100vw, 50vw" alt="${esc(A.alt)}" width="1200" height="1500" loading="lazy"></figure>
 </div></section>
 ${ctaBand(L, A.band)}`;
   return layout(L, { key: 'about', title: A.title, description: A.description, canonical: L.routes.about, body });
@@ -422,7 +425,7 @@ function contactPage(L) {
 <div class="hero-actions"><a class="btn btn-gold" href="${wa(L.ctaText)}" target="_blank" rel="noopener">WhatsApp ${SITE.phoneDisplay}</a><a class="btn btn-ghost" href="${SITE.instagram}" target="_blank" rel="noopener">Instagram</a></div></div></section>
 <section class="two-col"><div class="wrap two-grid">
 <div class="prose"><h2>${C.studioH}</h2><address>${C.studioP}</address><h2>${C.hoursH}</h2><p>${C.hoursP}</p><h2>${C.reachH}</h2><p>${C.reachP}</p><h2>${C.langH}</h2><p>${C.langP}</p></div>
-<figure><img src="/assets/img/work-3.jpg" alt="${esc(C.alt)}" width="1200" height="1600" loading="lazy"></figure>
+<figure><img src="/assets/img/work-3.webp" srcset="/assets/img/work-3-640.webp 640w, /assets/img/work-3.webp 1200w" sizes="(max-width: 900px) 100vw, 50vw" alt="${esc(C.alt)}" width="1200" height="1600" loading="lazy"></figure>
 </div></section>
 ${faqBlock(L.homeFaq, L.faqTitle)}`;
   return layout(L, { key: 'contact', title: C.title, description: C.description, canonical: L.routes.contact, body, schema: [faqSchema(L.homeFaq)] });
