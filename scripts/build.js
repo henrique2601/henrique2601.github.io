@@ -447,6 +447,7 @@ function copyDir(src, dst) { fs.mkdirSync(dst, { recursive: true }); for (const 
 fs.rmSync(DIST, { recursive: true, force: true });
 copyDir(path.join(SRC, 'assets'), path.join(DIST, 'assets'));
 fs.copyFileSync(path.join(SRC, 'favicon.svg'), path.join(DIST, 'favicon.svg'));
+if (fs.existsSync(path.join(SRC, 'static'))) copyDir(path.join(SRC, 'static'), DIST);
 const urls = [];
 for (const L of LANGS) {
   const R = L.routes; const put = (route, html) => { write(route.replace(/^\//, '') + 'index.html', html); urls.push(route); };
